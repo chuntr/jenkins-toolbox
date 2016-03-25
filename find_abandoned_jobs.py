@@ -20,13 +20,20 @@ def get_jobs_dir():
     return os.walk('.').next()[1]
 
 def __main__():
-    BFGsiteURL = 'http://build-master-dr.qast.bigfishgames.com:8080'
+    '''
+    Connect to the Jenkins Python API and get a list of valid jobs. Then walk
+    the Jenkins job folder on disk and compare to generate a list of jobs that
+    are on the disk but not configured in Jenkins.
+    '''
+
+    # Parse arguments and setup options
+    BFGsiteURL = 'http://build-master01.qast.bigfishgames.com:8080'
     apiURL ='/api/python?tree=jobs[name]'
 
     parser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter)
-    parser.add_argument("-u", "--username",  action='store_true',
-                        required=True, help='username for Jenkins API')
-    parser.add.argument("-r", "--rootURL' action='store_true',
+    parser.add_argument("-u", "--username",  action="store_true",
+                        required=True, help="username for Jenkins API")
+    parser.add.argument("-r", "--rootURL", action="store_true",
                         required=False, help="root URL for jenkins site")
 
     args = parser.parse_args()
@@ -36,6 +43,7 @@ def __main__():
         siteURL = BFGsiteURL
     URL = siteURL + apiURL
 
+    # Do the API work
     passman = urllib2.HTTPPasswordMgrWithDefaultRealm()
     passman.add_password(None, URL, USER, PASS)
     authhandler = urllib2.HTTPBasicAuthHandler(passman)
