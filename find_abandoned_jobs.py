@@ -27,7 +27,7 @@ def __main__():
     '''
 
     # Parse arguments and setup options
-    BFGsiteURL = 'http://build-master01.qast.bigfishgames.com:8080'
+    BFGsiteURL = 'http://your.default.jenkins.url.goes.here/'
     apiURL ='/api/python?tree=jobs[name]'
 
     parser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter)
